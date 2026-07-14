@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Url {
@@ -12,4 +13,14 @@ model Url {
   originalUrl String
   shortCode   String   @unique
   createdAt   DateTime @default(now())
+  clicks      Click[]
+}
+
+model Click {
+  id        String   @id @default(cuid())
+  url       Url      @relation(fields: [urlId], references: [id])
+  urlId     String
+  createdAt DateTime @default(now())
+  referrer  String?
+  userAgent String?
 }
