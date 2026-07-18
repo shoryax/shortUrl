@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { Home, Link2, QrCode, BarChart3, Settings, Sparkles } from "lucide-react";
+import { Home, QrCode, BarChart3, Settings, Sparkles } from "lucide-react";
 
 const items = [
   { id: "home", label: "Home", icon: Home, link: "/" },
-  { id: "shorten", label: "Shorten", icon: Link2, link: "/components/shorten" },
   { id: "qr", label: "QR Codes", icon: QrCode, link: "/components/qr" },
   { id: "analytics", label: "Analytics", icon: BarChart3, link: "/components/analytics" },
   { id: "ai", label: "AI Tools", icon: Sparkles, link: "/components/ai" },
@@ -21,7 +20,7 @@ export function AppSidebar() {
         </div>
         <div className="min-w-0">
           <div className="truncate font-mono text-sm font-semibold tracking-tight">cuturl.space</div>
-          <div className="truncate text-[10px] uppercase tracking-[0.2em] text-muted-foreground">URL Engine</div>
+          <div className="truncate text-[10px] tracking-[0.2em] text-muted-foreground">short the url</div>
         </div>
       </div>
 
