@@ -7,7 +7,6 @@ export async function createShortUrl(originalUrl: string) {
   let shortCode = generateShortCode();
   let attempts = 0;
 
-  // Handle the (rare) case of a collision on the unique short code
   while (attempts < MAX_RETRIES) {
     const existing = await prisma.url.findUnique({ where: { shortCode } });
     if (!existing) break;
@@ -29,8 +28,6 @@ export async function createShortUrl(originalUrl: string) {
   return url;
 }
 
-// services/url.service.ts
-
 export async function getOriginalUrl(
   shortCode: string,
   meta?: { referrer?: string; userAgent?: string }
@@ -39,7 +36,6 @@ export async function getOriginalUrl(
 
   if (!url) return null;
 
-  // Log the click, but don't block the redirect if logging fails
   await prisma.click.create({
     data: {
       urlId: url.id,
