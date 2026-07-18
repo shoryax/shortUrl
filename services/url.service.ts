@@ -31,10 +31,22 @@ export async function createShortUrl(originalUrl: string) {
 
 // services/url.service.ts
 
-export async function getOriginalUrl(shortCode: string) {
-  const url = await prisma.url.findUnique({
-    where: { shortCode },
+export async function getOriginalUrl(
+  shortCode: string,
+  meta?: { referrer?: string; userAgent?: string }
+) {
+  const url = await prisma.url.findUnique({ where: { shortCode } });
+
+  if (!url) return null;
+
+  // Log the click, but don't block the redirect if logging fails
+  await prisma.click.create({
+    data: {
+      urlId: url.id,
+      referrer: meta?.referrer,
+      userAgent: meta?.userAgent,
+    },
   });
 
-  return url; // will be null if not found — we check that in the route
+  return url;
 }
