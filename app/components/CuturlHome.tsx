@@ -47,7 +47,7 @@ export function CuturlHome() {
     if (!short) return;
     await navigator.clipboard.writeText(short);
     setCopied(true);
-    setTimeout(() => setCopied(false), 1600);
+    setTimeout(() => setCopied(false), 1500);
   };
 
   return (
